@@ -238,4 +238,46 @@ public class ContactTests
         Assert.NotNull(contact.PrimaryPhoneNumber);
         Assert.NotEqual(a, contact.PrimaryPhoneNumber!);
     }
+
+    /// Тест получения полного ФИО контакта
+    [Theory]
+    [MemberData(nameof(ContactFullNameTestData))]
+    public void Can_Get_Contact_Full_Name(Contact input, string expected)
+    {
+        String value = input.GetFullName();
+        Assert.Equal(expected, value);
+    }
+
+    public static TheoryData<Contact, String> ContactFullNameTestData()
+    {
+        return new TheoryData<Contact, String>
+        {
+            // Есть Имя, Отчество и Фамилия
+            { new Contact("Иван", "Иванович", "Иванов"), "Иван Иванович Иванов" },
+            // Нет Фамилии
+            { new Contact("Иван", "Иванович", ""), "Иван Иванович" },
+            // Отчество - пустая строка
+            { new Contact("Иван", "", "Иванов"), "Иван Иванов" },
+            // Нет Отчества
+            { new Contact("Иван", null, "Иванов"), "Иван Иванов" },
+            // Только Имя
+            { new Contact("Иван", "", ""), "Иван" },
+        };
+    }
+    
+    /// Тест очистки всех номеров телефона
+    [Fact]
+    public void Can_Clear_Contact_Phone_Numbers()
+    {
+        Contact contact = new Contact("Тест");
+        PhoneNumber a = new PhoneNumber("+7 (999) 888-77-66");
+        PhoneNumber b = new PhoneNumber("8123456");
+        contact.AddPhoneNumber(a);
+        contact.AddPhoneNumber(b);
+        
+        contact.ClearPhoneNumbers();
+        
+        Assert.Empty(contact.PhoneNumbers);
+        Assert.Null(contact.PrimaryPhoneNumber);
+    }
 }

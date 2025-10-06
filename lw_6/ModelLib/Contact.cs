@@ -130,6 +130,23 @@ public class Contact
         _primaryPhoneNumber = value;
     }
 
+    /// <summary>
+    /// Удаляет все номера телефонов контакта
+    /// </summary>
+    public void ClearPhoneNumbers()
+    {
+        _phoneNumbers.Clear();
+        _primaryPhoneNumber = null;
+    }
 
-    //TODO: добавить 2 метода
+    /// <summary>
+    /// Возвращает ФИО одной строкой
+    /// </summary>
+    public String GetFullName()
+    {
+        IEnumerable<String> parts = new[] { FirstName, MiddleName, LastName }.Where(
+            s => !string.IsNullOrWhiteSpace(s)
+        );
+        return string.Join(" ", parts);
+    }
 }
