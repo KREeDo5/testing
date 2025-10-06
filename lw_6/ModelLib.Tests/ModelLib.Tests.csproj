@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GeometryLib\GeometryLib.csproj" />
+    <ProjectReference Include="..\ModelLib\ModelLib.csproj" />
   </ItemGroup>
 
 </Project>
