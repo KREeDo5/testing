@@ -10,13 +10,13 @@ public class PhoneNumber
 {
     // Разделитель между основным номером и добавочным
     private const Char Separator = 'x';
-    
+
     // Приватное поле для хранения основного номера телефона
     private readonly long _number;
 
     // Приватное поле для хранения добавочного номера телефона
     private readonly long? _ext;
-    
+
     public PhoneNumber(String text)
     {
         ArgumentNullException.ThrowIfNull(text);
@@ -58,7 +58,7 @@ public class PhoneNumber
             _ext = long.Parse(parts[1]);
         }
     }
-    
+
     /// <summary>
     /// Возвращает строку номера телефона с символом + в начале, но без добавочного номера
     /// </summary>
@@ -83,7 +83,7 @@ public class PhoneNumber
 
         return false;
     }
-    
+
     // Проверяет оставшиеся символы на соответствие формату. Разрешены только цифры и один разделитель между ними.
     private static bool IsValidFormat(String text)
     {
@@ -121,6 +121,7 @@ public class PhoneNumber
         return other._number == _number && other._ext == _ext;
     }
 
+    [ExcludeFromCodeCoverage]
     public override int GetHashCode()
     {
         return HashCode.Combine(_number, _ext);

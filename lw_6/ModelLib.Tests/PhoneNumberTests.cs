@@ -134,7 +134,7 @@ public class PhoneNumberTests
             { "+1-999-555-9999-0000-333x999-555-9999-0000-333", "+199955599990000333x99955599990000333" },
         };
     }
-    
+
     /// Тест сравнения объектов PhoneNumber
     [Fact]
     public void Can_Find_The_Same_Phone_Number()

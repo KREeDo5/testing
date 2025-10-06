@@ -87,7 +87,8 @@ public class Contact
             if (_phoneNumbers.Count == 0)
             {
                 _primaryPhoneNumber = null;
-            } else if (Equals(_primaryPhoneNumber, value))
+            }
+            else if (Equals(_primaryPhoneNumber, value))
             {
                 _primaryPhoneNumber = _phoneNumbers[0];
             }
@@ -128,4 +129,7 @@ public class Contact
 
         _primaryPhoneNumber = value;
     }
+
+
+    //TODO: добавить 2 метода
 }
