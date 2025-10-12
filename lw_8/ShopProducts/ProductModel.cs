@@ -6,18 +6,10 @@ public class ProductModel
 {
     readonly ProductApi api = new ProductApi();
 
-    public async Task GetProducts()
+    public async Task<List<Product>?> GetProducts()
     {
         List<Product>? products = await api.LoadProducts();
-
-        if (products != null)
-        {
-            Console.WriteLine($"Получено товаров: {products.Count}");
-        }
-        else
-        {
-            Console.WriteLine("Не удалось получить список товаров или он пуст.");
-        }
+        return products;
     }
 
     public async Task<int?> AddAndShowProduct(Product product)
@@ -28,23 +20,22 @@ public class ProductModel
             int? newId = await getNewProductId(response);
             return newId;
         }
+
         Console.WriteLine($"Код ответа на добавление: {response.StatusCode}");
         Console.WriteLine($"Ошибка при добавлении товара: {response.ReasonPhrase}");
         return null;
     }
 
-    public async Task DeleteProductById(int id)
+    public async Task<Boolean> DeleteProductById(int id)
     {
         HttpResponseMessage response = await api.DeleteProduct(id);
         if (response.StatusCode == HttpStatusCode.OK)
         {
-            Console.WriteLine($"Товар с id={id} успешно удалён");
+            return true;
         }
-        else
-        {
-            Console.WriteLine($"Код ответа на удаление: {response.StatusCode}");
-            Console.WriteLine($"Ошибка при удалении товара: {response.ReasonPhrase}");
-        }
+        Console.WriteLine($"Код ответа на удаление: {response.StatusCode}");
+        Console.WriteLine($"Ошибка при удалении товара: {response.ReasonPhrase}");
+        return false;
     }
 
 
