@@ -31,12 +31,26 @@ class Program
         };
         int? newProductId = await model.AddAndShowProduct(testProduct);
         if (newProductId != null)
-        {
-            // Удаляем новый товар
-            Boolean isDeleted = await model.DeleteProductById(newProductId.Value);
-            if (isDeleted)
+        {   
+            List<Product>? newProductList = await model.GetProducts();
+            if (newProductList != null)
             {
-                Console.WriteLine($"Товар с id={newProductId} успешно удалён");
+                Product? addedProduct = newProductList.FirstOrDefault(product => product.id == newProductId);
+                if (addedProduct != null)
+                {   
+                    addedProduct.title = "Dmitrii_" + addedProduct.title;
+                    Boolean isEdited = await model.EditProduct(addedProduct);
+                    if (isEdited)
+                    {
+                        Console.WriteLine($"Товар с id={newProductId} успешно изменён");
+                    }
+                    // Удаляем новый товар
+                    Boolean isDeleted = await model.DeleteProductById(newProductId.Value);
+                    if (isDeleted)
+                    {
+                        Console.WriteLine($"Товар с id={newProductId} успешно удалён");
+                    }
+                }
             }
         }
 

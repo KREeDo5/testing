@@ -17,7 +17,7 @@ public class ProductModel
         HttpResponseMessage response = await api.AddProduct(product);
         if (response.StatusCode == HttpStatusCode.OK)
         {
-            int? newId = await getNewProductId(response);
+            int? newId = await GetNewProductId(response);
             return newId;
         }
 
@@ -33,13 +33,27 @@ public class ProductModel
         {
             return true;
         }
+
         Console.WriteLine($"Код ответа на удаление: {response.StatusCode}");
         Console.WriteLine($"Ошибка при удалении товара: {response.ReasonPhrase}");
         return false;
     }
 
+    public async Task<Boolean> EditProduct(Product product)
+    {
+        HttpResponseMessage response = await api.EditProduct(product);
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            return true;
+        }
 
-    private async Task<int?> getNewProductId(HttpResponseMessage response)
+        Console.WriteLine($"Код ответа на изменение: {response.StatusCode}");
+        Console.WriteLine($"Ошибка при изменении товара: {response.ReasonPhrase}");
+        return false;
+    }
+
+
+    private static async Task<int?> GetNewProductId(HttpResponseMessage response)
     {
         string respBody = await response.Content.ReadAsStringAsync();
         try
