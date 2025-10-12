@@ -1,53 +1,24 @@
 namespace ShopProducts;
-using System.Text.Json;
-using System.Net.Http;
-using System.Net.Http.Json;
 
 public class ProductModel
 {
-    private static readonly HttpClient HttpClient = new HttpClient();
-    private const string BaseUrl = "http://shop2.qatl.ru/shop/api";
+    readonly ProductApi api = new ProductApi();
     
-    /// <summary>
-    /// GET: Получить список всех товаров
-    /// </summary>
-    public async Task<List<Product>?> LoadProducts()
+    public async Task GetProducts()
     {
-        const string url = $"{BaseUrl}/products";
-        HttpResponseMessage response = await HttpClient.GetAsync(url);
-        response.EnsureSuccessStatusCode();
-        string json = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<List<Product>>(json);
-    }
+        List<Product>? products = await api.LoadProducts();
 
-    /// <summary>
-    /// GET: Удалить товар по его ID
-    /// </summary>
-    public async Task<HttpResponseMessage> DeleteProduct(int productId)
-    {
-        string url = $"{BaseUrl}/deleteproduct?id={productId}";
-        HttpResponseMessage response = await HttpClient.GetAsync(url);
-        return response;
+        if (products != null)
+        {
+            Console.WriteLine($"Получено товаров: {products.Count}");
+            foreach (Product p in products)
+            {
+                Console.WriteLine($"{p.id}: {p.title} — {p.price}₽");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Не удалось получить список товаров или он пуст.");
+        }
     }
-    
-    /// <summary>
-    /// POST: Добавление товара
-    /// </summary>
-    public async Task<HttpResponseMessage> AddProduct(Product product)
-    {
-        const string url = $"{BaseUrl}/addproduct";
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync(url, product);
-        return response;
-    }
-    
-    /// <summary>
-    /// POST: Редактирование товара
-    /// </summary>
-    public async Task<HttpResponseMessage> EditProduct(Product product)
-    {   
-        const string url = $"{BaseUrl}/editproduct";
-        HttpResponseMessage response = await HttpClient.PostAsJsonAsync(url, product);
-        return response;
-    }
-    
 }
