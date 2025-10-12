@@ -53,6 +53,39 @@
               }
             }
           ]
+        },
+        {
+          "predicates": [
+            {
+              "not": {
+                "or": [
+                  {
+                    "equals": {
+                      "method": "GET",
+                      "path": "/rate",
+                      "query": { "from": "USD", "to": "RUB" }
+                    }
+                  },
+                  {
+                    "equals": {
+                      "method": "GET",
+                      "path": "/rate",
+                      "query": { "from": "EUR", "to": "USD" }
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 404,
+                "headers": { "Content-Type": "application/json" },
+                "body": "{\"error\": \"Rate not found\"}"
+              }
+            }
+          ]
         }
       ]
     }
