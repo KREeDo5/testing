@@ -1,3 +1,5 @@
+using ShopProducts.Helpers;
+
 namespace ShopProducts;
 using System.Text.Json;
 using System.Net.Http;
@@ -5,7 +7,7 @@ using System.Net.Http.Json;
 
 public class ProductApi
 {
-    private static readonly HttpClient HttpClient = new HttpClient();
+    private static readonly HttpClient HttpClient = new HttpClient(new LoggingHandler(new HttpClientHandler()));
     private const string BaseUrl = "http://shop2.qatl.ru/shop/api";
     
     /// <summary>
@@ -49,5 +51,4 @@ public class ProductApi
         HttpResponseMessage response = await HttpClient.PostAsJsonAsync(url, product);
         return response;
     }
-    
 }

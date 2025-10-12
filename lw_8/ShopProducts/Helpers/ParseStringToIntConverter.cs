@@ -1,7 +1,7 @@
-namespace ShopProducts;
-
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+namespace ShopProducts.Helpers;
 
 public class ParseStringToIntConverter : JsonConverter<int?>
 {
