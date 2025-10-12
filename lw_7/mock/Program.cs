@@ -1,4 +1,5 @@
 ﻿namespace mock;
+using System.Text.Json;
 
 class Program
 {
@@ -11,7 +12,8 @@ class Program
         using HttpClient httpClient = new HttpClient();
         HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
         string json = await response.Content.ReadAsStringAsync();
+        RateResponse? rateResp = JsonSerializer.Deserialize<RateResponse>(json);
 
-        Console.WriteLine($"Курс {from} -> {to}: {json}");
+        Console.WriteLine(rateResp != null ? $"Курс {from} -> {to}: {rateResp.Rate}" : "Ошибка при получении курса.");
     }
 }
