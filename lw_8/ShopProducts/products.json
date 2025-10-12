@@ -1,0 +1,15 @@
+[
+  {
+    "id": 101,
+    "category_id": 2,
+    "title": "Тестовый товар",
+    "alias": "testoviy-tovar",
+    "content": "Описание товара",
+    "price": 1000,
+    "old_price": 1200,
+    "status": 1,
+    "keywords": "тест, магазин, товар",
+    "description": "Тестовое описание",
+    "hit": 1
+  }
+]

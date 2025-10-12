@@ -1,3 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ShopProducts;
 
-Console.WriteLine("Hello, World!");
+List<Product>? products = ProductModel.LoadProducts("products.json");
+Console.WriteLine($"Загружено товаров: {products?.Count}");
