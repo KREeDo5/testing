@@ -1,34 +1,53 @@
 namespace ShopProducts;
 using System.Text.Json;
+using System.Net.Http;
+using System.Net.Http.Json;
 
 public class ProductModel
 {
-    public static List<Product>? LoadProducts(string path)
-    {
-        string json = File.ReadAllText(path);
-        List<Product>? products = JsonSerializer.Deserialize<List<Product>>(json);
-        return products;
-    }
+    private static readonly HttpClient HttpClient = new HttpClient();
+    private const string BaseUrl = "http://shop2.qatl.ru/shop/api";
     
-    /*
+    /// <summary>
+    /// GET: Получить список всех товаров
+    /// </summary>
     public async Task<List<Product>?> LoadProducts()
     {
-        //  Список всех товаров (GET): BASE_URL/api/products
+        const string url = $"{BaseUrl}/products";
+        HttpResponseMessage response = await HttpClient.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+        string json = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<List<Product>>(json);
     }
 
-    public async Task<HttpResponseMessage> DeleteProduct(Product product)
+    /// <summary>
+    /// GET: Удалить товар по его ID
+    /// </summary>
+    public async Task<HttpResponseMessage> DeleteProduct(int productId)
     {
-        // Удаление (GET): BASE_URL/api/deleteproduct?id=ID
+        string url = $"{BaseUrl}/deleteproduct?id={productId}";
+        HttpResponseMessage response = await HttpClient.GetAsync(url);
+        return response;
     }
     
+    /// <summary>
+    /// POST: Добавление товара
+    /// </summary>
     public async Task<HttpResponseMessage> AddProduct(Product product)
     {
-        // Добавление (POST): BASE_URL/api/addproduct
+        const string url = $"{BaseUrl}/addproduct";
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync(url, product);
+        return response;
     }
     
+    /// <summary>
+    /// POST: Редактирование товара
+    /// </summary>
     public async Task<HttpResponseMessage> EditProduct(Product product)
-    {
-        // Редактирование (POST): BASE_URL/api/editproduct
+    {   
+        const string url = $"{BaseUrl}/editproduct";
+        HttpResponseMessage response = await HttpClient.PostAsJsonAsync(url, product);
+        return response;
     }
-    */
+    
 }
