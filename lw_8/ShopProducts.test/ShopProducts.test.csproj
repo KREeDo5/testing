@@ -20,4 +20,15 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ShopProducts\ShopProducts.csproj" />
+    </ItemGroup>
+
+  <ItemGroup>
+    <None Update="..\ShopProducts\TestData\products.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>TestData\products.json</Link>
+    </None>
+  </ItemGroup>
+
 </Project>

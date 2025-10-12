@@ -20,7 +20,6 @@ class Program
         {
             category_id = 5,
             title = "Котлы генерала Дмитрия",
-            alias = "testoviy-tovar",
             content = "Ooops, podorozhalo",
             price = 228333.0m,
             old_price = 1200.0m,
@@ -29,7 +28,7 @@ class Program
             description = "mena? mena!",
             hit = HitStatus.Hit
         };
-        int? newProductId = await model.AddAndShowProduct(testProduct);
+        int? newProductId = await model.AddProduct(testProduct);
         if (newProductId != null)
         {   
             List<Product>? newProductList = await model.GetProducts();

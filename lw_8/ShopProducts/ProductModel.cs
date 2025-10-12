@@ -12,7 +12,7 @@ public class ProductModel
         return products;
     }
 
-    public async Task<int?> AddAndShowProduct(Product product)
+    public async Task<int?> AddProduct(Product product)
     {
         HttpResponseMessage response = await api.AddProduct(product);
         if (response.StatusCode == HttpStatusCode.OK)
@@ -83,7 +83,6 @@ public class ProductModel
             expected.title == actual.title &&
             expected.price == actual.price &&
             expected.category_id == actual.category_id &&
-            expected.alias == actual.alias &&
             expected.content == actual.content &&
             expected.old_price == actual.old_price &&
             expected.status == actual.status &&

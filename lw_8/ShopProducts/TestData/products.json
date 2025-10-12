@@ -3,13 +3,23 @@
     "id": 101,
     "category_id": 2,
     "title": "Тестовый товар",
-    "alias": "testoviy-tovar",
     "content": "Описание товара",
     "price": 1000,
     "old_price": 1200,
     "status": 1,
     "keywords": "тест, магазин, товар",
     "description": "Тестовое описание",
+    "hit": 1
+  },
+  {
+    "category_id": 5,
+    "title": "Котлы генерала Дмитрия",
+    "content": "Ooops, podorozhalo",
+    "price": 228333.0,
+    "old_price": 1200.0,
+    "status": 1,
+    "keywords": "тест,магазин,пример",
+    "description": "mena? mena! - base",
     "hit": 1
   }
 ]
