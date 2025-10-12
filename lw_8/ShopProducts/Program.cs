@@ -1,4 +1,6 @@
-﻿using ShopProducts;
+﻿using ShopProducts.Entities;
+
+namespace ShopProducts;
 
 class Program
 {

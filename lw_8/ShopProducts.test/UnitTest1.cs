@@ -1,3 +1,4 @@
+using ShopProducts.Entities;
 using ShopProducts.TestData;
 
 namespace ShopProducts.test;

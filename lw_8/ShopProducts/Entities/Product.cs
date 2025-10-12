@@ -1,8 +1,8 @@
+using System.Text.Json.Serialization;
+
 using ShopProducts.Helpers;
 
-namespace ShopProducts;
-
-using System.Text.Json.Serialization;
+namespace ShopProducts.Entities;
 
 public class Product()
 {   
@@ -32,16 +32,4 @@ public class Product()
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public HitStatus? hit { get; set; }
-}
-
-public enum ProductStatus
-{
-    Inactive = 0,
-    Active = 1
-}
-
-public enum HitStatus
-{
-    NotHit = 0,
-    Hit = 1
 }

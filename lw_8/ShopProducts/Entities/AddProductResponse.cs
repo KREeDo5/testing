@@ -1,4 +1,4 @@
-namespace ShopProducts;
+namespace ShopProducts.Entities;
 
 public class AddProductResponse
 {

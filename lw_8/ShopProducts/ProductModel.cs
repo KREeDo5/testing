@@ -1,5 +1,7 @@
 using System.Net;
 
+using ShopProducts.Entities;
+
 namespace ShopProducts;
 
 public class ProductModel

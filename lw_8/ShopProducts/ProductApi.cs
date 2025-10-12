@@ -1,3 +1,4 @@
+using ShopProducts.Entities;
 using ShopProducts.Helpers;
 
 namespace ShopProducts;

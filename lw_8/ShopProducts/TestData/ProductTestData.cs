@@ -1,5 +1,7 @@
 using System.Text.Json;
 
+using ShopProducts.Entities;
+
 namespace ShopProducts.TestData;
 
 public class ProductTestData
