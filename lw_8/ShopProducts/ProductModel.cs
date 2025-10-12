@@ -76,4 +76,19 @@ public class ProductModel
             return null;
         }
     }
+    
+    public static bool ValidateProduct(Product expected, Product actual)
+    {
+        return
+            expected.title == actual.title &&
+            expected.price == actual.price &&
+            expected.category_id == actual.category_id &&
+            expected.alias == actual.alias &&
+            expected.content == actual.content &&
+            expected.old_price == actual.old_price &&
+            expected.status == actual.status &&
+            expected.keywords == actual.keywords &&
+            expected.description == actual.description &&
+            expected.hit == actual.hit;
+    }
 }
