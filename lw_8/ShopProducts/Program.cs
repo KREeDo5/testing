@@ -5,7 +5,7 @@ class Program
     static async Task Main(string[] args)
     {
         ProductModel model = new ProductModel();
-        await model.GetProducts();
+        // await model.GetProducts();
 
 
         // Product testProduct1 = new Product { title = "Товар", price = 10.5m };
@@ -25,5 +25,7 @@ class Program
         //     hit = HitStatus.Hit
         // };
         // await model.AddAndShowProduct(testProduct2);
+        
+        await model.DeleteProductById(363);
     }
 }

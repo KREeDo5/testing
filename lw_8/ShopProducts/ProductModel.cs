@@ -34,6 +34,19 @@ public class ProductModel
         }
 
         Console.WriteLine($"Код ответа на добавление: {response.StatusCode}");
-
+    }
+    
+    public async Task DeleteProductById(int id)
+    {
+        HttpResponseMessage response = await api.DeleteProduct(id);
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            Console.WriteLine($"Товар с id={id} успешно удалён");
+        }
+        else
+        {
+            Console.WriteLine($"Код ответа на удаление: {response.StatusCode}");
+            Console.WriteLine($"Ошибка при удалении товара: {response.ReasonPhrase}");
+        }
     }
 }
