@@ -60,7 +60,21 @@ public class ProductModel
         HttpResponseMessage response = await api.EditProduct(product);
         if (response.StatusCode == HttpStatusCode.OK)
         {
-            return true;
+            // return true;  // закомментировано, чтобы проверять статус из тела ответа
+            
+            string respBody = await response.Content.ReadAsStringAsync();
+            try
+            {
+                using JsonDocument doc = System.Text.Json.JsonDocument.Parse(respBody);
+                if (doc.RootElement.TryGetProperty("status", out JsonElement statusProp) && statusProp.GetInt32() == 1)
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка при обработке ответа сервера.");
+            }
         }
 
         Console.WriteLine($"Код ответа на изменение: {response.StatusCode}");
