@@ -1,0 +1,35 @@
+[
+  {
+    "category_id": 3, "title": "Valid normal", "content": "ok", "price": 999, "old_price": 1000, "status": 1, "keywords": "пример", "description": "всё ок", "hit": 1
+  },
+  {
+    "category_id": 2, "title": "!@#$%^&*()", "content": "Название содержит только спец.символы", "price": 160, "old_price": 170, "status": 1, "keywords": "пример", "description": "пример", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Отсутствует content", "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Пустая строка - content", "content": "","price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Null - content", "content": null, "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 2, "title": "Нулевая старая стоимость", "content": "old_price 0", "price": 20, "old_price": 0, "status": 1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "Равная старая стоимость и текущая", "content": "", "price": 20, "old_price": 20, "status": 1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "null - keywords", "content": "null - keywords", "price": 20, "old_price": 20, "status": 5, "keywords": null, "description": "", "hit": 0
+  },
+  {
+    "category_id": 5, "title": "Дубликат", "content": "Дубликат-1", "price": 23, "old_price": 25, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Дубликат", "content": "Дубликат-2", "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Добавлен alias", "alias": "Alias ADDED", "content": "Алиас", "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  }
+]

@@ -8,6 +8,9 @@ public class ProductTestData
 {
     private static List<Product> All =>
         JsonSerializer.Deserialize<List<Product>>(File.ReadAllText("TestData/products.json")) ?? [];
+    
+    private static List<Product> Valids =>
+        JsonSerializer.Deserialize<List<Product>>(File.ReadAllText("TestData/valid-products.json")) ?? [];
 
     public static IEnumerable<object[]> AllProducts()
     {
@@ -19,7 +22,10 @@ public class ProductTestData
     /// </summary>
     public static IEnumerable<object[]> ValidProducts()
     {
-        foreach (Product p in All)
+        // foreach (Product p in All)
+        //     if (p.category_id is >= 1 and <= 15 && !string.IsNullOrWhiteSpace(p.title) && p.price > 0)
+        //         yield return [p];
+        foreach (Product p in Valids)
             if (p.category_id is >= 1 and <= 15 && !string.IsNullOrWhiteSpace(p.title) && p.price > 0)
                 yield return [p];
     }

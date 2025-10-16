@@ -47,8 +47,8 @@ public class AddProductTests
     {
         ProductModel model = new ProductModel();
         int? id = await model.AddProduct(product);
+        if (id != null) await model.DeleteProductById(id.Value);
         Assert.NotNull(id);
-        await model.DeleteProductById(id.Value);
     }
 
     // Очень длинный title
@@ -69,6 +69,7 @@ public class AddProductTests
     {
         ProductModel model = new ProductModel();
         int? id = await model.AddProduct(product);
+        if (id != null) await model.DeleteProductById(id.Value);
         Assert.Null(id);
     }
 
