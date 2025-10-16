@@ -5,7 +5,6 @@ namespace ShopProducts.test;
 
 public class AddProductTests
 {
-    // Валидные товары
     [Theory]
     [MemberData(nameof(ProductTestData.ValidProducts), MemberType = typeof(ProductTestData))]
     public async Task Test_AddValidProduct(Product product)
@@ -50,8 +49,7 @@ public class AddProductTests
         if (id != null) await model.DeleteProductById(id.Value);
         Assert.NotNull(id);
     }
-
-    // Очень длинный title
+    
     [Theory]
     [MemberData(nameof(ProductTestData.LongTitleProducts), MemberType = typeof(ProductTestData))]
     public async Task Test_AddProductWithVeryLongTitle(Product product)
@@ -61,8 +59,7 @@ public class AddProductTests
         if (id != null) await model.DeleteProductById(id.Value);
         Assert.True(id == null);
     }
-
-    // Цена == 0 или null
+    
     [Theory]
     [MemberData(nameof(ProductTestData.ZeroPriceProducts), MemberType = typeof(ProductTestData))]
     public async Task Test_AddProductWithZeroOrMissingPrice(Product product)
@@ -72,8 +69,7 @@ public class AddProductTests
         if (id != null) await model.DeleteProductById(id.Value);
         Assert.Null(id);
     }
-
-    // Дубли title
+    
     [Theory]
     [MemberData(nameof(ProductTestData.SameTitleProducts), MemberType = typeof(ProductTestData))]
     public async Task Test_AddSeveralValidProductWithSameTitle(Product product)

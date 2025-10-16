@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text.Json;
 
 using ShopProducts.Entities;
 
@@ -33,7 +34,20 @@ public class ProductModel
         HttpResponseMessage response = await api.DeleteProduct(id);
         if (response.StatusCode == HttpStatusCode.OK)
         {
-            return true;
+            // return true; // закомментировано, чтобы проверять статус из тела ответа
+            string respBody = await response.Content.ReadAsStringAsync();
+            try
+            {
+                using JsonDocument doc = System.Text.Json.JsonDocument.Parse(respBody);
+                if (doc.RootElement.TryGetProperty("status", out JsonElement statusProp) && statusProp.GetInt32() == 1)
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка при обработке ответа сервера.");
+            }
         }
 
         Console.WriteLine($"Код ответа на удаление: {response.StatusCode}");
