@@ -1,25 +1,82 @@
 [
   {
-    "id": 101,
-    "category_id": 2,
-    "title": "Тестовый товар",
-    "content": "Описание товара",
-    "price": 1000,
-    "old_price": 1200,
-    "status": 1,
-    "keywords": "тест, магазин, товар",
-    "description": "Тестовое описание",
-    "hit": 1
+    "category_id": 3, "title": "Valid normal", "content": "ok", "price": 999, "old_price": 1000, "status": 1, "keywords": "пример", "description": "всё ок", "hit": 1
   },
   {
-    "category_id": 5,
-    "title": "Котлы генерала Дмитрия",
-    "content": "Ooops, podorozhalo",
-    "price": 228333.0,
-    "old_price": 1200.0,
+    "category_id": 0, "title": "bad-category-id-low", "content": "0 category_id", "price": 50, "old_price": 60, "status": 1, "keywords": "пример", "description": "пример", "hit": 0
+  },
+  {
+    "category_id": null, "title": "null-category-id", "content": "nullable category_id", "price": 50, "old_price": 60, "status": 1, "keywords": "пример", "description": "пример", "hit": 0
+  },
+  {
+    "category_id": 20, "title": "bad-category-id-high", "content": "fail", "price": 51, "old_price": 62, "status": 1, "keywords": "пример", "description": "пример", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "", "content": "title - пустая строка", "price": 150, "old_price": 155, "status": 1, "keywords": "пример", "description": "пример", "hit": 0
+  },
+  {
+    "category_id": 2, "title": null, "content": "nullable title", "price": 150, "old_price": 155, "status": 1, "keywords": "пример", "description": "пример", "hit": 0
+  },
+  { 
+    "category_id": 2, "title": "    ", "content": "title - только пробелы", "price": 151, "old_price": 156, "status": 1, "keywords": "пример", "description": "пример", "hit": 0
+  },
+  { 
+    "category_id": 2, "title": "!@#$%^&*()", "content": "Название содержит только спец.символы", "price": 160, "old_price": 170, "status": 1, "keywords": "пример", "description": "пример", "hit": 1
+  },
+  { 
+    "category_id": 2,
+    "title": "257_Длина_строки_hYuuOZZuDKXpcmouZvtdKSstqxyWHovYrfsLlxqbFqPcNlzoPeiOMztcgbiodZZraepZcumJWgLTWxoJVtZIPPQnzAzCUBRhAThnNxUzhdqLJJuXJrfytvFPTjopnQgqeJxAjkQoXkkFYBsJxtZVFRhOtLcGoTvafttGSMAHpqCLEHKTUllHLXIxbZxiUmFDYbLHRjSKGNNpUCFQswdWAiMcXlZqIHRnWlAmlnCMYAbgA257", 
+    "content": "verylong",
+    "price": 161,
+    "old_price": 171,
     "status": 1,
-    "keywords": "тест,магазин,пример",
-    "description": "mena? mena! - base",
-    "hit": 1
+    "keywords": "",
+    "description": "long-title",
+    "hit": 0
+  },
+  {
+    "category_id": 5, "title": "Отсутствует content", "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Пустая строка - content", "content": "","price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Null - content", "content": null, "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 2, "title": "Нулевая стоимость", "content": "цена 0", "price": 0, "old_price": 5, "status": 1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "Null - price", "content": "цена null", "price": null, "old_price": 5, "status": 1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "Нулевая старая стоимость", "content": "old_price 0", "price": 20, "old_price": 0, "status": 1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "Null - old_price", "content": "nullable old_price", "price": 20, "old_price": null, "status": 1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "Равная старая стоимость и текущая", "content": "", "price": 20, "old_price": 20, "status": 1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "Некорректный status", "content": "Некорректный status", "price": 20, "old_price": 20, "status": -1, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "Некорректный status", "content": "Некорректный status", "price": 20, "old_price": 20, "status": 5, "keywords": "", "description": "", "hit": 0
+  },
+  {
+    "category_id": 2, "title": "null - keywords", "content": "null - keywords", "price": 20, "old_price": 20, "status": 5, "keywords": null, "description": "", "hit": 0
+  },
+  {
+    "category_id": 5, "title": "Некорректный hit", "content": "Некорректный hit", "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 4
+  },
+  {
+    "category_id": 5, "title": "Дубликат", "content": "Дубликат-1", "price": 23, "old_price": 25, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  { 
+    "category_id": 5, "title": "Дубликат", "content": "Дубликат-2", "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
+  },
+  {
+    "category_id": 5, "title": "Добавлен alias", "alias": "Alias ADDED", "content": "Алиас", "price": 32, "old_price": 35, "status": 1, "keywords": "", "description": "", "hit": 1
   }
 ]
