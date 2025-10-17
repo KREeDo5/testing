@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 
+using UICheck.test.Config;
+
 namespace UICheck.test.Pages;
 
 using OpenQA.Selenium;
@@ -12,10 +14,68 @@ public class HomePage
     {
         driver = webDriver;
     }
+    
+    /// <summary>
+    /// Кнопка "Добавить в корзину" в карточке товара в списке товаров.
+    /// </summary>
+    public IWebElement AddToCartButton => driver.FindElement(By.CssSelector(".b-basketBtn.b-basketBtn_descriptionCard")); //b-basketBtn__link b-basketBtn__link_toBasket
+    /// <summary>
+    /// Кнопка уменьшения количества товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
+    /// </summary>
+    public IWebElement DecrementProductButton => driver.FindElement(By.CssSelector("b-counter__icon_minus")); //icon icon--minus b-counter__icon b-counter__icon_minus
+    
+    /// <summary>
+    /// Кнопка увеличения количества товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
+    /// </summary>
+    public IWebElement IncrementProductButton => driver.FindElement(By.CssSelector("b-counter__icon_plus")); //icon icon--plus b-counter__icon b-counter__icon_plus
+    
+    /// <summary>
+    /// Количество товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
+    /// </summary>
+    public IWebElement ProductCount => driver.FindElement(By.CssSelector("b-counter__value"));  //b-counter__value
+    
+    /// <summary>
+    /// Окно корзины, которое появляется при нажатии на иконку корзины в шапке сайта.
+    /// </summary>
+    public IWebElement CartModal => driver.FindElement(By.CssSelector("b-basket__popup")); //b-basket__popup popup click_popup b-basket__popup_opened
+    /// <summary>
+    /// Сумма корзины в модальном окне корзины.
+    /// </summary>
+    public IWebElement CartModalTotalCost => driver.FindElement(By.CssSelector("b-price__item_current")); //b-price__item b-price__item_current
+    
+    /// <summary>
+    /// Кнопка закрытия модального окна корзины.
+    /// </summary>
+    public IWebElement CartModalCloseButton => driver.FindElement(By.ClassName("b-basket__close")); //icon icon--close b-basket__close
+    
+    /// <summary>
+    /// Общая цена товара в карточке товара в модальном окне корзины.
+    /// </summary>
+    public IWebElement CartModalProductTotalPrice => driver.FindElement(By.CssSelector("b-price__item_current"));   //b-price__item b-price__item_current
+    
+    /// <summary>
+    /// Кнопка удаления товара из корзины в модальном окне корзины.
+    /// </summary>
+    public IWebElement CartModalProductDeleteButton => driver.FindElement(By.CssSelector("b-basket__itemRemove")); //b-basket__itemRemove
+    
+    /// <summary>
+    /// Кнопка корзины в шапке сайта.
+    /// </summary>
+    private IWebElement CartButton => driver.FindElement(By.CssSelector("#bx_basket_line_FKauiI .b-h__iconsItem_basket"));
+    
+    /// <summary>
+    /// Все товары в модальном окне корзины.
+    /// </summary>
+    private ReadOnlyCollection<IWebElement> CartModalProducts => driver.FindElements(By.CssSelector(".b-basket__item"));
+    
+    /// <summary>
+    /// Кнопка принятия куки.
+    /// </summary>
+    private IWebElement AcceptCookieButton => driver.FindElement(By.CssSelector(".gdpr-cookie-accept-btn-wrapper"));
 
     public void Open()
     {
-        driver.Navigate().GoToUrl("https://prostayaeda.ru/");
+        driver.Navigate().GoToUrl(HomePageTestData.BaseUrl);
     }
 
     /// <summary>
@@ -23,8 +83,7 @@ public class HomePage
     /// </summary>
     public void AddFirstProductToCart()
     {
-        IWebElement addToCartButton = driver.FindElement(By.CssSelector(".b-basketBtn.b-basketBtn_descriptionCard"));
-        addToCartButton.Click();
+        AddToCartButton.Click();
     }
 
     /// <summary>
@@ -32,8 +91,7 @@ public class HomePage
     /// </summary>
     public void OpenCart()
     {
-        IWebElement cartLink = driver.FindElement(By.CssSelector("#bx_basket_line_FKauiI .b-h__iconsItem_basket"));
-        cartLink.Click();
+        CartButton.Click();
     }
 
     /// <summary>
@@ -42,10 +100,9 @@ public class HomePage
     public bool CartHasItem()
     {
         // Находим все элементы товаров в корзине
-        ReadOnlyCollection<IWebElement> items = driver.FindElements(By.CssSelector(".b-basket__item"));
-        foreach (IWebElement item in items)
+        foreach (IWebElement product in CartModalProducts)
         {
-            IWebElement counterValue = item.FindElement(By.CssSelector(".b-counter__value"));
+            IWebElement counterValue = product.FindElement(By.CssSelector(".b-counter__value"));
             Console.WriteLine("counterValue.Text = '" + counterValue.Text + "'");
             if (int.TryParse(counterValue.Text, out int count) && count == 1)
             {
@@ -63,8 +120,7 @@ public class HomePage
     {
         try
         {
-            IWebElement cookieButton = driver.FindElement(By.CssSelector(".gdpr-cookie-accept-btn-wrapper"));
-            cookieButton.Click();
+            AcceptCookieButton.Click();
         }
         // Если баннера нет — ничего не делаем
         catch (NoSuchElementException)
