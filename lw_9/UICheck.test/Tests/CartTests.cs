@@ -11,14 +11,14 @@ public class CartTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixtur
     [Fact]
     public void AddProductToCartTest()
     {
-        MainPage mainPage = new MainPage(_driver);
+        HomePage homePage = new HomePage(_driver);
 
-        mainPage.Open();
-        mainPage.CloseCookieBannerIfExists();
-        mainPage.AddFirstProductToCart();
-        mainPage.OpenCart();
+        homePage.Open();
+        homePage.CloseCookieBannerIfExists();
+        homePage.AddFirstProductToCart();
+        homePage.OpenCart();
         Thread.Sleep(2000);
-        bool cartHasItem = mainPage.CartHasItem();
+        bool cartHasItem = homePage.CartHasItem();
         Assert.True(cartHasItem);
     }
 }

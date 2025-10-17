@@ -10,9 +10,9 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
     [Fact]
     public void SearchItemAppearsInResults()
     {
-        MainPage mainPage = new MainPage(_driver);
-        mainPage.Open();
-        mainPage.CloseCookieBannerIfExists();
+        HomePage homePage = new HomePage(_driver);
+        homePage.Open();
+        homePage.CloseCookieBannerIfExists();
 
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
@@ -21,4 +21,6 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         Thread.Sleep(2000);
         Assert.True(searchPage.HasSearchResults());
     }
+    
+    //TODO: Поиск конкретного товара
 }

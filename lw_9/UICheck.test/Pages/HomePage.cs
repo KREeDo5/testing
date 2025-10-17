@@ -4,11 +4,11 @@ namespace UICheck.test.Pages;
 
 using OpenQA.Selenium;
 
-public class MainPage
+public class HomePage
 {
     private readonly IWebDriver driver;
 
-    public MainPage(IWebDriver webDriver)
+    public HomePage(IWebDriver webDriver)
     {
         driver = webDriver;
     }
