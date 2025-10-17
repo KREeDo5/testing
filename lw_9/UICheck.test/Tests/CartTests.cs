@@ -17,7 +17,7 @@ public class CartTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixtur
         mainPage.CloseCookieBannerIfExists();
         mainPage.AddFirstProductToCart();
         mainPage.OpenCart();
-        new WebDriverWait(_driver, TimeSpan.FromSeconds(2)).Until(_ => mainPage.CartHasItem());
+        Thread.Sleep(2000);
         bool cartHasItem = mainPage.CartHasItem();
         Assert.True(cartHasItem);
     }
