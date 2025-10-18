@@ -1,10 +1,6 @@
-using UICheck.test.Config;
 using OpenQA.Selenium;
-
 namespace UICheck.test.Tests;
 using Pages;
-
-
 
 /// <summary>
 /// Тесты - Добавление товара в корзину и работа с модальным окном корзины

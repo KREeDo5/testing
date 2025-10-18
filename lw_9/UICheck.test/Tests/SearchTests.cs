@@ -1,7 +1,5 @@
 using UICheck.test.Config;
-
 namespace UICheck.test.Tests;
-
 using OpenQA.Selenium;
 using Pages;
 

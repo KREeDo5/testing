@@ -1,9 +1,6 @@
 using UICheck.test.Config;
-
 using OpenQA.Selenium;
-
 namespace UICheck.test.Tests;
-
 using Pages;
 
 public class AuthTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixture>
