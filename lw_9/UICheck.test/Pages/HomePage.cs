@@ -22,26 +22,31 @@ public class HomePage
     /// <summary>
     /// Кнопка уменьшения количества товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
     /// </summary>
-    public IWebElement DecrementProductButton => driver.FindElement(By.CssSelector("b-counter__icon_minus")); //icon icon--minus b-counter__icon b-counter__icon_minus
+    public IWebElement DecrementProductButton => driver.FindElement(By.CssSelector(".b-counter__icon.b-counter__icon_minus")); //icon icon--minus b-counter__icon b-counter__icon_minus
     
     /// <summary>
     /// Кнопка увеличения количества товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
     /// </summary>
-    public IWebElement IncrementProductButton => driver.FindElement(By.CssSelector("b-counter__icon_plus")); //icon icon--plus b-counter__icon b-counter__icon_plus
+    public IWebElement IncrementProductButton => driver.FindElement(By.CssSelector(".b-counter__icon.b-counter__icon_plus")); //icon icon--plus b-counter__icon b-counter__icon_plus
     
     /// <summary>
     /// Количество товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
     /// </summary>
-    public IWebElement ProductCount => driver.FindElement(By.CssSelector("b-counter__value"));  //b-counter__value
+    public IWebElement ProductCount => driver.FindElement(By.CssSelector(".b-counter__value"));
+    
+    /// <summary>
+    /// Кнопка корзины в шапке сайта.
+    /// </summary>
+    public IWebElement CartButton => driver.FindElement(By.CssSelector("#bx_basket_line_FKauiI .b-h__iconsItem_basket"));
     
     /// <summary>
     /// Окно корзины, которое появляется при нажатии на иконку корзины в шапке сайта.
     /// </summary>
-    public IWebElement CartModal => driver.FindElement(By.CssSelector("b-basket__popup")); //b-basket__popup popup click_popup b-basket__popup_opened
+    public IWebElement CartModal => driver.FindElement(By.CssSelector(".b-basket-popup.b-basket-popup_popup.click-popup.b-basket-popup_opened"));
     /// <summary>
     /// Сумма корзины в модальном окне корзины.
     /// </summary>
-    public IWebElement CartModalTotalCost => driver.FindElement(By.CssSelector("b-price__item_current")); //b-price__item b-price__item_current
+    public IWebElement CartModalTotalCost => driver.FindElement(By.CssSelector(".b-price__item.b-price__item_current"));
     
     /// <summary>
     /// Кнопка закрытия модального окна корзины.
@@ -56,17 +61,14 @@ public class HomePage
     /// <summary>
     /// Кнопка удаления товара из корзины в модальном окне корзины.
     /// </summary>
-    public IWebElement CartModalProductDeleteButton => driver.FindElement(By.CssSelector("b-basket__itemRemove")); //b-basket__itemRemove
-    
-    /// <summary>
-    /// Кнопка корзины в шапке сайта.
-    /// </summary>
-    private IWebElement CartButton => driver.FindElement(By.CssSelector("#bx_basket_line_FKauiI .b-h__iconsItem_basket"));
+    public IWebElement CartModalProductDeleteButton => driver.FindElement(By.CssSelector(".b-basket__itemRemove"));
     
     /// <summary>
     /// Все товары в модальном окне корзины.
     /// </summary>
-    private ReadOnlyCollection<IWebElement> CartModalProducts => driver.FindElements(By.CssSelector(".b-basket__item"));
+    public ReadOnlyCollection<IWebElement> CartModalProducts => driver.FindElements(By.CssSelector(".b-basket__item"));
+    
+    public IWebElement CartEmptyText => driver.FindElement(By.CssSelector(".b-basket__empty_text"));
     
     /// <summary>
     /// Кнопка принятия куки.
@@ -103,14 +105,33 @@ public class HomePage
         foreach (IWebElement product in CartModalProducts)
         {
             IWebElement counterValue = product.FindElement(By.CssSelector(".b-counter__value"));
-            Console.WriteLine("counterValue.Text = '" + counterValue.Text + "'");
-            if (int.TryParse(counterValue.Text, out int count) && count == 1)
+            if (int.TryParse(counterValue.Text, out int count) && count > 0)
             {
                 return true;
             }
         }
         return false;
     }
+    
+    /// <summary>
+    /// Проверяет, что в корзине нет товаров.
+    /// </summary>
+    public bool IsCartEmpty()
+    {
+        try
+        {
+            // Проверяем наличие хедера корзины и текста пустой корзины
+            IWebElement emptyText = CartEmptyText;
+            bool result = emptyText.Displayed;
+            return result;
+        }
+        catch (NoSuchElementException)
+        {
+            // Корзина не пустая
+            return false;
+        }
+    }
+
 
 
     /// <summary>
