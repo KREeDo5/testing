@@ -18,17 +18,17 @@ public class HomePage
     /// <summary>
     /// Кнопка "Добавить в корзину" в карточке товара в списке товаров.
     /// </summary>
-    public IWebElement AddToCartButton => driver.FindElement(By.CssSelector(".b-basketBtn.b-basketBtn_descriptionCard")); //b-basketBtn__link b-basketBtn__link_toBasket
+    public IWebElement AddToCartButton => driver.FindElement(By.CssSelector(".b-basketBtn.b-basketBtn_descriptionCard"));
     
     /// <summary>
     /// Кнопка уменьшения количества товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
     /// </summary>
-    public IWebElement DecrementProductButton => driver.FindElement(By.CssSelector(".b-counter__icon.b-counter__icon_minus")); //icon icon--minus b-counter__icon b-counter__icon_minus
+    public IWebElement DecrementProductButton => driver.FindElement(By.CssSelector(".b-counter__icon.b-counter__icon_minus"));
     
     /// <summary>
     /// Кнопка увеличения количества товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
     /// </summary>
-    public IWebElement IncrementProductButton => driver.FindElement(By.CssSelector(".b-counter__icon.b-counter__icon_plus")); //icon icon--plus b-counter__icon b-counter__icon_plus
+    public IWebElement IncrementProductButton => driver.FindElement(By.CssSelector(".b-counter__icon.b-counter__icon_plus"));
     
     /// <summary>
     /// Количество товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
@@ -43,22 +43,23 @@ public class HomePage
     /// <summary>
     /// Окно корзины, которое появляется при нажатии на иконку корзины в шапке сайта.
     /// </summary>
-    public IWebElement CartModal => driver.FindElement(By.CssSelector(".b-basket-popup.b-basket-popup_popup.click-popup.b-basket-popup_opened"));
+    public IWebElement CartModal => driver.FindElement(By.CssSelector(".b-basket__popup.b-basket__popup_opened"));
     
     /// <summary>
     /// Сумма корзины в модальном окне корзины.
     /// </summary>
-    public IWebElement CartModalTotalCost => driver.FindElement(By.CssSelector(".b-price__item.b-price__item_current"));
+    public IWebElement CartModalTotalCost => driver.FindElement(By.CssSelector(".b-basket__footer .b-price__item.b-price__item_current"));
     
     /// <summary>
     /// Кнопка закрытия модального окна корзины.
     /// </summary>
-    public IWebElement CartModalCloseButton => driver.FindElement(By.ClassName("b-basket__close")); //icon icon--close b-basket__close
+    public IWebElement CartModalCloseButton => driver.FindElement(By.CssSelector(".icon.icon--close.b-basket__close"));
     
     /// <summary>
     /// Общая цена товара в карточке товара в модальном окне корзины.
     /// </summary>
-    public IWebElement CartModalProductTotalPrice => driver.FindElement(By.CssSelector("b-price__item_current"));   //b-price__item b-price__item_current
+    public IWebElement CartModalProductTotalPrice =>
+        driver.FindElement(By.CssSelector(".b-basket__item .b-price__item.b-price__item_current"));
     
     /// <summary>
     /// Кнопка удаления товара из корзины в модальном окне корзины.
