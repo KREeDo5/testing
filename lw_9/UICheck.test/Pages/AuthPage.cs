@@ -1,5 +1,9 @@
 using System.Collections.ObjectModel;
 
+using OpenQA.Selenium.Support.UI;
+
+using UICheck.test.Config;
+
 namespace UICheck.test.Pages;
 
 using OpenQA.Selenium;
@@ -40,7 +44,7 @@ public class AuthPage
     /// Заголовок формы авторизации.
     /// </summary>
     public IWebElement Title => _driver.FindElement(By.XPath("//h4[contains(text(), 'Авторизация')]"));
-    
+
     /// <summary>
     /// Проверяет, есть ли в модальных окнах текст (например, "Пользователь не найден" или "Неверный логин или пароль").
     /// </summary>
@@ -49,11 +53,13 @@ public class AuthPage
         try
         {
             // Ищет <h5> с нужным текстом во всех модальных окнах
-            ReadOnlyCollection<IWebElement> elements = _driver.FindElements(By.XPath($"//h5[contains(@class,'b-order-confirm__title') and contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ','abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя'), '{errorText.ToLower()}')]"));
+            ReadOnlyCollection<IWebElement> elements = _driver.FindElements(By.XPath(
+                $"//h5[contains(@class,'b-order-confirm__title') and contains(translate(text(),'ABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ','abcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя'), '{errorText.ToLower()}')]"));
             foreach (IWebElement element in elements)
             {
                 if (element.Displayed) return true;
             }
+
             return false;
         }
         catch
@@ -76,6 +82,22 @@ public class AuthPage
             }
 
             return false;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+
+    /// <summary>
+    /// Проверяет, что после авторизации происходит переход на страницу личного кабинета.
+    /// </summary>
+    public bool DidRedirectToPersonalPage()
+    {
+        try
+        {
+            return _driver.Url.StartsWith(AuthPageTestData.PersonalPageUrl, StringComparison.OrdinalIgnoreCase);
         }
         catch
         {
