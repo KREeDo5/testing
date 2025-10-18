@@ -19,6 +19,7 @@ public class HomePage
     /// Кнопка "Добавить в корзину" в карточке товара в списке товаров.
     /// </summary>
     public IWebElement AddToCartButton => driver.FindElement(By.CssSelector(".b-basketBtn.b-basketBtn_descriptionCard")); //b-basketBtn__link b-basketBtn__link_toBasket
+    
     /// <summary>
     /// Кнопка уменьшения количества товара. Используется в карточке товара в списке товаров и в карточке товара в корзине.
     /// </summary>
@@ -43,6 +44,7 @@ public class HomePage
     /// Окно корзины, которое появляется при нажатии на иконку корзины в шапке сайта.
     /// </summary>
     public IWebElement CartModal => driver.FindElement(By.CssSelector(".b-basket-popup.b-basket-popup_popup.click-popup.b-basket-popup_opened"));
+    
     /// <summary>
     /// Сумма корзины в модальном окне корзины.
     /// </summary>
@@ -68,6 +70,9 @@ public class HomePage
     /// </summary>
     public ReadOnlyCollection<IWebElement> CartModalProducts => driver.FindElements(By.CssSelector(".b-basket__item"));
     
+    /// <summary>
+    /// Текст, отображаемый в модальном окне корзины, когда корзина пуста.
+    /// </summary>
     public IWebElement CartEmptyText => driver.FindElement(By.CssSelector(".b-basket__empty_text"));
     
     /// <summary>
@@ -131,8 +136,6 @@ public class HomePage
             return false;
         }
     }
-
-
 
     /// <summary>
     /// Закрыть баннер с куки, если он есть
