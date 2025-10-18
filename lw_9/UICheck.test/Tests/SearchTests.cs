@@ -3,6 +3,9 @@ namespace UICheck.test.Tests;
 using OpenQA.Selenium;
 using Pages;
 
+/// <summary>
+/// Тесты - Поиск товара в каталоге
+/// </summary>
 public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixture>
 {
     private readonly IWebDriver _driver = fixture.Driver;
@@ -16,6 +19,7 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
 
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
+        Thread.Sleep(2000);
         searchPage.EnterSearchText("ролл");
         
         Thread.Sleep(2000);

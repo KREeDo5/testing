@@ -4,6 +4,9 @@ using OpenQA.Selenium;
 using Pages;
 using OpenQA.Selenium.Support.UI;
 
+/// <summary>
+/// Тесты - Добавление товара в корзину и работа с модальным окном корзины
+/// </summary>
 public class CartTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixture>
 {
     private readonly IWebDriver _driver = fixture.Driver;
