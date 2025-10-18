@@ -26,5 +26,34 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         Assert.True(searchPage.HasSearchResults());
     }
     
-    //TODO: Поиск конкретного товара
+    //Проверка поиска по несуществующему товару
+    [Fact]
+    public void SearchUnknownProductTitleQuery()
+    {
+        HomePage homePage = new HomePage(_driver);
+        homePage.Open();
+        homePage.CloseCookieBannerIfExists();
+        SearchPage searchPage = new SearchPage(_driver);
+        searchPage.OpenSearchModal();
+        Thread.Sleep(2000);
+        searchPage.EnterSearchText("Наушники");
+        Thread.Sleep(2000);
+        Assert.False(searchPage.HasSearchResults());
+    }
+    
+    //Проверка корректности поиска (наличие поискового запроса в заголовках результатов)
+    [Fact]
+    public void SearchResultsContainQueryInTitle()
+    {
+        HomePage homePage = new HomePage(_driver);
+        homePage.Open();
+        homePage.CloseCookieBannerIfExists();
+        SearchPage searchPage = new SearchPage(_driver);
+        searchPage.OpenSearchModal();
+        Thread.Sleep(2000);
+        string query = "Ролл Филадельфия Лайт с огурцом";
+        searchPage.EnterSearchText(query);
+        Thread.Sleep(2000);
+        Assert.True(searchPage.AllProductTitlesContain(query));
+    }
 }

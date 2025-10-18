@@ -88,4 +88,20 @@ public class SearchPage
     {
         return ProductCards.Count > 0;
     }
+    
+    /// <summary>
+    /// Все результаты содержат подстроку query в названии.
+    /// </summary>
+    public bool AllProductTitlesContain(string query)
+    {
+        foreach (IWebElement card in ProductCards)
+        {
+            IWebElement titleElement = card.FindElement(By.CssSelector(".b-productCard__title"));
+            if (!titleElement.Text.Contains(query, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
