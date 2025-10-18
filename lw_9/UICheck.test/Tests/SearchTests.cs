@@ -1,3 +1,5 @@
+using UICheck.test.Config;
+
 namespace UICheck.test.Tests;
 
 using OpenQA.Selenium;
@@ -21,15 +23,16 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
         Thread.Sleep(2000);
-        searchPage.EnterSearchText("ролл"); //TODO: Все входные данные и проверяемые значения должны быть вынесены в конфигурационный файл с тестовым набором данных (имя товара, логин и тп).
+        searchPage.EnterSearchText(SearchPageTestData.ValidSearchQuery);
         
         Thread.Sleep(2000);
         Assert.True(searchPage.HasSearchResults());
     }
     
     //Проверка поиска по некорректному (несуществующему) товару
-    [Fact]
-    public void SearchUnknownProductTitleQuery()
+    [Theory]
+    [MemberData(nameof(InvalidProductQueries))]
+    public void SearchUnknownProductTitleQuery(string invalidQuery)
     {
         HomePage homePage = new HomePage(_driver);
         homePage.Open();
@@ -37,14 +40,23 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
         Thread.Sleep(2000);
-        searchPage.EnterSearchText("Наушники"); //TODO: Все входные данные и проверяемые значения должны быть вынесены в конфигурационный файл с тестовым набором данных (имя товара, логин и тп).
+        searchPage.EnterSearchText(invalidQuery);
         Thread.Sleep(2000);
         Assert.False(searchPage.HasSearchResults());
     }
     
+    public static IEnumerable<object[]> InvalidProductQueries()
+    {
+        foreach (string query in SearchPageTestData.InvalidSearchQueries)
+        {
+            yield return [query];
+        }
+    }
+    
     //Проверка корректности поиска (наличие поискового запроса в заголовках результатов)
-    [Fact]
-    public void SearchResultsContainQueryInTitle()
+    [Theory]
+    [MemberData(nameof(ValidProductQueries))]
+    public void SearchResultsContainQueryInTitle(string query)
     {
         HomePage homePage = new HomePage(_driver);
         homePage.Open();
@@ -52,9 +64,16 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
         Thread.Sleep(2000);
-        string query = "Ролл Филадельфия Лайт с огурцом"; //TODO: Все входные данные и проверяемые значения должны быть вынесены в конфигурационный файл с тестовым набором данных (имя товара, логин и тп).
         searchPage.EnterSearchText(query);
         Thread.Sleep(2000);
         Assert.True(searchPage.AllProductTitlesContain(query));
+    }
+    
+    public static IEnumerable<object[]> ValidProductQueries()
+    {
+        foreach (string query in SearchPageTestData.ValidSearchQueries)
+        {
+            yield return [query];
+        }
     }
 }
