@@ -57,4 +57,51 @@ public class CatalogSortTests(WebDriverFixture fixture) : IClassFixture<WebDrive
         foreach (string label in CatalogPageTestData.SortOptions)
             yield return new object[] { label };
     }
+    
+    [Fact]
+    public void ProductsAreDisplayed()
+    {
+        CatalogPage page = new CatalogPage(_driver);
+        page.Open();
+        Thread.Sleep(1000);
+        Assert.True(page.ProductCards.Count > 0);
+    }
+    
+    // Сортировка по возрастанию цены
+    [Fact]
+    public void SortByPriceAscendingWorks()
+    {
+        CatalogPage page = new CatalogPage(_driver);
+        page.Open();
+        Thread.Sleep(2000);
+        page.OpenSortDropdown();
+        Thread.Sleep(2000);
+        IWebElement? ascOption = page.SortOptions.FirstOrDefault(o => o.Text.Contains("По возрастанию цены"));
+        Assert.NotNull(ascOption);
+        ascOption.Click();
+        Thread.Sleep(2000);
+        List<decimal> prices = page.GetProductPrices();
+        Assert.True(prices.Count > 1, "Недостаточно товаров для проверки сортировки");
+        List<decimal> sorted = prices.OrderBy(p => p).ToList();
+        Assert.Equal(sorted, prices);
+    }
+    
+    // Сортировка по возрастанию цены
+    [Fact]
+    public void SortByPriceDescendingWorks()
+    {
+        CatalogPage page = new CatalogPage(_driver);
+        page.Open();
+        Thread.Sleep(2000);
+        page.OpenSortDropdown();
+        Thread.Sleep(2000);
+        IWebElement? descOption = page.SortOptions.FirstOrDefault(o => o.Text.Contains("По убыванию цены"));
+        Assert.NotNull(descOption);
+        descOption.Click();
+        Thread.Sleep(2000);
+        List<decimal> prices = page.GetProductPrices();
+        Assert.True(prices.Count > 1, "Недостаточно товаров для проверки сортировки");
+        List<decimal> sorted = prices.OrderByDescending(p => p).ToList();
+        Assert.Equal(sorted, prices);
+    }
 }

@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using UICheck.test.Config;
 namespace UICheck.test.Pages;
 using OpenQA.Selenium;
@@ -55,5 +57,28 @@ public class CatalogPage
     public void OpenSortDropdown()
     {
         SortDropdownToggle.Click();
+    }
+    
+    // Блок с карточками товаров
+    public ReadOnlyCollection<IWebElement> ProductCards => driver.FindElements(By.CssSelector(".b-productCard"));
+    
+    /// <summary>
+    /// Получить цены всех товаров на странице
+    /// </summary>
+    public List<decimal> GetProductPrices()
+    {
+        List<decimal> prices = new List<decimal>();
+        foreach (IWebElement card in ProductCards)
+        {
+            IWebElement priceElement = card.FindElement(By.CssSelector(".b-price__item.b-price__item_current span"));
+            string raw = priceElement.Text.Trim();
+            raw = raw.Replace(',', '.');
+            raw = raw.Replace(" ", "");
+            if (decimal.TryParse(raw, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal price))
+            {
+                prices.Add(price);
+            }
+        }
+        return prices;
     }
 }
