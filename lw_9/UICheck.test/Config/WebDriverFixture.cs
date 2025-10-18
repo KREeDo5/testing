@@ -1,7 +1,7 @@
-namespace UICheck.test.Tests;
-
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+
+namespace UICheck.test.Config;
 
 public class WebDriverFixture : IDisposable
 {

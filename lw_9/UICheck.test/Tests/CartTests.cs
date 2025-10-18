@@ -1,3 +1,5 @@
+using UICheck.test.Config;
+
 namespace UICheck.test.Tests;
 using Xunit;
 using OpenQA.Selenium;

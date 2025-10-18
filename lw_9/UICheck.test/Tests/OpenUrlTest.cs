@@ -1,5 +1,4 @@
 using UICheck.test.Config;
-using UICheck.test.Pages;
 
 namespace UICheck.test.Tests;
 
