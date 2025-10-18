@@ -9,7 +9,8 @@ using Pages;
 public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixture>
 {
     private readonly IWebDriver _driver = fixture.Driver;
-
+    
+    //Поиск возвращает товары
     [Fact]
     public void SearchItemAppearsInResults()
     {
@@ -26,7 +27,7 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         Assert.True(searchPage.HasSearchResults());
     }
     
-    //Проверка поиска по несуществующему товару
+    //Проверка поиска по некорректному (несуществующему) товару
     [Fact]
     public void SearchUnknownProductTitleQuery()
     {
