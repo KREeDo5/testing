@@ -1,16 +1,67 @@
 using System.Collections.ObjectModel;
 
 namespace UICheck.test.Pages;
+
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+
 using System;
 
 public class SearchPage
 {
     private readonly IWebDriver driver;
+
     public SearchPage(IWebDriver webDriver)
     {
         driver = webDriver;
+    }
+    
+    /// <summary>
+    /// Кнопка поиска.
+    /// </summary>
+    public IWebElement SearchIcon => driver.FindElement(By.CssSelector(".b-h__iconsItem_search"));
+    
+    /// <summary>
+    /// Форма ввода текста для поиска товаров.
+    /// </summary>
+    public IWebElement SearchInput => driver.FindElement(By.CssSelector(".b-search__input"));
+    
+    /// <summary>
+    /// Список всех открытых модальных окон поиска на странице
+    /// </summary>
+    public ReadOnlyCollection<IWebElement> SearchPopups => driver.FindElements(By.CssSelector(".b-search__popup"));
+
+    /// <summary>
+    /// Список блоков с результатами поиска внутри первого открытого окна поиска. Каждый элемент SearchResultsBlocks — отдельный DIV с классом .b-search__result.
+    /// </summary>
+    public ReadOnlyCollection<IWebElement> SearchResultsBlocks
+    {
+        get
+        {
+            if (SearchPopups.Count == 0)
+            {
+                return new List<IWebElement>().AsReadOnly();
+            }
+
+            return SearchPopups[0].FindElements(By.CssSelector(".b-search__result"));
+        }
+    }
+    
+    /// <summary>
+    /// Список карточек товаров, найденных по поиску.
+    /// </summary>
+    public ReadOnlyCollection<IWebElement> ProductCards
+    {
+        get
+        {
+            List<IWebElement> products = new List<IWebElement>();
+            foreach (IWebElement resultsBlock in SearchResultsBlocks)
+            {
+                products.AddRange(resultsBlock.FindElements(By.CssSelector(".b-productCard.b-productCard_search")));
+            }
+
+            return products.AsReadOnly();
+        }
     }
 
     /// <summary>
@@ -18,8 +69,7 @@ public class SearchPage
     /// </summary>
     public void OpenSearchModal()
     {
-        IWebElement searchIcon = driver.FindElement(By.CssSelector(".b-h__iconsItem_search"));
-        searchIcon.Click();
+        SearchIcon.Click();
     }
 
     /// <summary>
@@ -27,41 +77,15 @@ public class SearchPage
     /// </summary>
     public void EnterSearchText(string query)
     {
-        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(2));
-        IWebElement input = wait.Until(d => d.FindElement(By.CssSelector(".b-search__input")));
-        input.Clear();
-        input.SendKeys(query);
+        SearchInput.Clear();
+        SearchInput.SendKeys(query);
     }
 
     /// <summary>
     /// Наличие результатов после поиска
     /// </summary>
     public bool HasSearchResults()
-    {   
-        // Появился ли popup
-        ReadOnlyCollection<IWebElement> popups = driver.FindElements(By.CssSelector(".b-search__popup"));
-        if (popups.Count == 0)
-        {
-            return false;
-        }
-
-        // Появился ли блок с результатами
-        IWebElement popup = popups[0];
-        ReadOnlyCollection<IWebElement> searchResults = popup.FindElements(By.CssSelector(".b-search__result"));
-        if (searchResults.Count == 0)
-        {
-            return false;
-        }
-
-        // Есть ли хотя бы 1 результат
-        foreach (IWebElement resultBlock in searchResults)
-        {
-            ReadOnlyCollection<IWebElement> products = resultBlock.FindElements(By.CssSelector(".b-productCard.b-productCard_search"));
-            if (products.Count > 0)
-            {
-                return true;
-            }
-        }
-        return false;
+    {
+        return ProductCards.Count > 0;
     }
 }
