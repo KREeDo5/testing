@@ -1,3 +1,6 @@
+using UICheck.test.Config;
+using UICheck.test.Pages;
+
 namespace UICheck.test.Tests;
 
 using Xunit;
@@ -7,9 +10,9 @@ public class OpenUrlTest(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
     private readonly IWebDriver _driver = fixture.Driver;
 
     [Fact]
-    public void OpenMainPage()
+    public void OpenHomePage()
     {
-        _driver.Navigate().GoToUrl("https://prostayaeda.ru/");
-        Assert.Contains("prostayaeda", _driver.Url);
+        _driver.Navigate().GoToUrl(HomePageTestData.BaseUrl);
+        Assert.Contains(HomePageTestData.DomainName, _driver.Url);
     }
 }

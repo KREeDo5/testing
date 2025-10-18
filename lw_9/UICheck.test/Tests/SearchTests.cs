@@ -21,7 +21,7 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
         Thread.Sleep(2000);
-        searchPage.EnterSearchText("ролл");
+        searchPage.EnterSearchText("ролл"); //TODO: Все входные данные и проверяемые значения должны быть вынесены в конфигурационный файл с тестовым набором данных (имя товара, логин и тп).
         
         Thread.Sleep(2000);
         Assert.True(searchPage.HasSearchResults());
@@ -37,7 +37,7 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
         Thread.Sleep(2000);
-        searchPage.EnterSearchText("Наушники");
+        searchPage.EnterSearchText("Наушники"); //TODO: Все входные данные и проверяемые значения должны быть вынесены в конфигурационный файл с тестовым набором данных (имя товара, логин и тп).
         Thread.Sleep(2000);
         Assert.False(searchPage.HasSearchResults());
     }
@@ -52,7 +52,7 @@ public class SearchTests(WebDriverFixture fixture) : IClassFixture<WebDriverFixt
         SearchPage searchPage = new SearchPage(_driver);
         searchPage.OpenSearchModal();
         Thread.Sleep(2000);
-        string query = "Ролл Филадельфия Лайт с огурцом";
+        string query = "Ролл Филадельфия Лайт с огурцом"; //TODO: Все входные данные и проверяемые значения должны быть вынесены в конфигурационный файл с тестовым набором данных (имя товара, логин и тп).
         searchPage.EnterSearchText(query);
         Thread.Sleep(2000);
         Assert.True(searchPage.AllProductTitlesContain(query));
